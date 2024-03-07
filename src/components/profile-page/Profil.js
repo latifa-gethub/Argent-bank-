@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './header/Header';
 import TransactionButton from './section-account/TransactionButton';
 import ItemAccountContent from './section-account/ItemAccountContent';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserProfil } from '../../data/data';
+import { stockInfoUser } from '../../Redux/store';
 const Profil = () => {
+  const dispatch=useDispatch()
+  const token=useSelector((state)=>state.userSlice.token)
+
+useEffect(()=>{   
+  async function getStatus(token){
+    const response=await getUserProfil(token)  
+    //console.log(response)
+    if(response.status===200){
+      const infoUser=response.body
+      console.log("info user avec apel api aprés envoyer token",infoUser)
+      dispatch(stockInfoUser(infoUser))         
+    }
+  }  
+   getStatus(token) 
+},[])
   
+    
+  /* const infoUtilisateur=useSelector((state)=>state.userSlice.infoUser) */
   
   return (
+
     <div className="main bg-dark">
       <Header />
+      
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <ItemAccountContent
@@ -17,7 +37,6 @@ const Profil = () => {
           accountAmount="$2,082.79"
           description="Available Balance"
         />
-
         <TransactionButton />
       </section>
       <section className="account">
