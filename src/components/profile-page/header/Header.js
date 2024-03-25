@@ -21,7 +21,6 @@ const Header = () => {
   function edit(newData) {
     console.log('new data', newData);
     setNewinfo(newData);
-
   }
   useEffect(
     () => {
@@ -29,10 +28,11 @@ const Header = () => {
         console.log(newinfo);
         async function getApi(token, newinfo) {
           const response = await putUser(token, newinfo);
-
+         
           if (response.status === 200) {
             console.log(response);
             dispatch(modifUser(newinfo));
+            setEditName(false)
           }
         }
         getApi(token, newinfo);
@@ -62,6 +62,7 @@ const Header = () => {
         <div>
           <form onSubmit={handleSubmit(edit)}>
             <input
+            required
               placeholder={firstName}
               name="firstName"
               {...register('firstName')}
@@ -69,6 +70,7 @@ const Header = () => {
               id="username"
             />
             <input
+            required
               placeholder={lastName}
               name="lastName"
               {...register('lastName')}
@@ -79,7 +81,9 @@ const Header = () => {
             <button type="submit" className="save">
               Save
             </button>
-            <button className="save" onClick={handleReset}>
+            <button className="save" onClick={() => {
+          setEditName(false);
+        }}>
               Cancel
             </button>
           </form>

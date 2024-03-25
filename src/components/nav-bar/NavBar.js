@@ -10,9 +10,11 @@ export  const NavBar = () => {
   const infoUtilisateur=useSelector((state)=>state.userSlice.infoUser)
   const firstName=infoUtilisateur.firstName
     //function pour vider le store et se redireger vers la page d'accueil
-   function deconnecter(){      
+   function deconnecter(){ 
+       
       navigate('/') ;         
-       dispatch(videInfo(''))     
+       dispatch(videInfo('')) 
+       console.log("vider le store")     
     }
   return (
     <nav className="main-nav">   
@@ -24,8 +26,9 @@ export  const NavBar = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>        
-      <div>
-        { token ? <><i className="fa fa-user-circle" />{firstName}<i className="fa fa-sign-out" onClick={deconnecter}/>Sign Out</>:
+      <div className='main-nav'>
+        { token ? <><Link className='main-nav-item' to={'/profil'}><i className="fa fa-user-circle" />
+        {firstName}</Link><Link to={'/'} className='main-nav-item' onClick={deconnecter}><i className="fa fa-sign-out" />Sign Out</Link></>:
         <Link className="main-nav-item" to={'/login'}>
         <i className="fa fa-user-circle" />        
         Sign In

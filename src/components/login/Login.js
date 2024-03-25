@@ -10,6 +10,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   let [identifiant, setIdentifiant] = useState({});
+  const [authorization, setAuthorization] = useState(true);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
@@ -22,35 +23,35 @@ const Login = () => {
     email: identifiant.username,
     password: identifiant.password
   };
- 
-  useEffect(() => {
-    if (login.email !== undefined && login.password !== undefined) {       
-      async function getApi(login) {
-        
-        //appel api
-        const reponse = await postLogin(login);
-        if (reponse.status === 200) {
-          
-          const token = reponse.body.token;
-          console.log(token);
-          //donner une tache à redux
-          dispatch(stockToken(token));
-          if (identifiant.remember) {
-            localStorage.setItem('email', login.email);
-            localStorage.setItem('password', login.password);
-            localStorage.setItem('remember', identifiant.remember);
+
+  useEffect(
+    () => {
+      if (login.email !== undefined && login.password !== undefined) {
+        async function getApi(login) {
+          //appel api
+          const reponse = await postLogin(login);
+          if (reponse.status === 200) {
+            const token = reponse.body.token;
+            console.log(token);
+            //donner une tache à redux
+            dispatch(stockToken(token));
+            if (identifiant.remember) {
+              localStorage.setItem('email', login.email);
+              localStorage.setItem('password', login.password);
+              localStorage.setItem('remember', identifiant.remember);
+            } else {
+              localStorage.clear();
+            }
+            navigate('/profil');
           } else {
-            localStorage.clear();
+            setAuthorization(false);
           }
-          navigate('/profil');
-        } else {
-          console.log('erreur');
         }
+        getApi(login);
       }
-      getApi(login);
-    }
-    
-  }, [identifiant]);
+    },
+    [identifiant]
+  );
 
   return (
     <div className="main bg-dark">
@@ -65,7 +66,7 @@ const Login = () => {
               defaultValue={
                 rememberMe === 'true' ? localStorage.getItem('email') : ''
               }
-              /* required */
+              required
               {...register('username')}
               type="text"
               id="username"
@@ -78,7 +79,7 @@ const Login = () => {
               defaultValue={
                 rememberMe === 'true' ? localStorage.getItem('password') : ''
               }
-             /*  required */
+              required
               {...register('password')}
               type="password"
               id="password"
@@ -95,6 +96,7 @@ const Login = () => {
           </div>
 
           <button className="sign-in-button">Sign In</button>
+          {authorization === false && <span>identifiant incorrecte</span>}
         </form>
       </section>
     </div>

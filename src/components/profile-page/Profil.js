@@ -5,18 +5,21 @@ import ItemAccountContent from './section-account/ItemAccountContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfil } from '../../data/data';
 import { stockInfoUser } from '../../Redux/store';
+import { useNavigate } from 'react-router-dom';
 const Profil = () => {
   const dispatch=useDispatch()
   const token=useSelector((state)=>state.userSlice.token)
-
+ const navigate=useNavigate()
 useEffect(()=>{   
   async function getStatus(token){
     const response=await getUserProfil(token)  
-    //console.log(response)
-    if(response.status===200){
+     console.log(response)
+    if(response && response.status===200){
       const infoUser=response.body
       console.log("info user avec apel api aprés envoyer token",infoUser)
       dispatch(stockInfoUser(infoUser))         
+    }else if(response === 'Unauthorized'){
+     navigate('/*')
     }
   }  
    getStatus(token) 

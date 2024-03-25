@@ -39,6 +39,8 @@ export async function getUserProfil(token) {
     return 'Invalid Fields';
   } else if (response.status === 500) {
     return 'Internal Server Error';
+  }else if(response.status === 401){
+    return  'Unauthorized'
   }
 }catch{
 return "error server"
