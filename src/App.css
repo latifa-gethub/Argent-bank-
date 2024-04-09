@@ -20,6 +20,7 @@ html {
   .bg-dark {
     background-color: #12002b;
     flex: 1 ;
+    padding: 0.1rem 0 1rem 0;
   }
   
   .sr-only {
@@ -176,7 +177,7 @@ html {
   }
   
   .sign-in-icon {
-    font-size: 5rem;
+    font-size: 1rem;
   }
   
   .input-remember {
@@ -192,24 +193,20 @@ html {
     flex-direction: column;
     text-align: left;
     margin-bottom: 1rem;
-  }
-  
+  }  
   .input-wrapper label {
     font-weight: bold;
-  }
-  
+  }  
   .input-wrapper input {
     padding: 5px;
     font-size: 1.2rem;
-  }
-  
+  }  
   .footer {
     display: flex;
     justify-content: center;
     border-top: 2px solid #ccc;
     padding: 2rem 0 1.5rem;
-  }
-  
+  } 
   .footer-text {
     margin: 0;
     padding: 0;
@@ -259,7 +256,45 @@ html {
     font-weight: bold;
     padding: 10px;
   }
-  
+  /* formulaire edit name ********************/
+  .form-editName{
+    height: 60px;
+    display: flex;
+    padding-left: 5px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-editName button{
+    width: 80px;
+    height: 27px;
+    padding-left: 5px;
+    color: #00bc77;
+    border: solid 1px #00bc77;
+    border-radius: none;
+  }
+  #input-edit-lastName{    
+    margin-left: 1rem;
+  }
+  #input-edit-firstName,#input-edit-lastName{
+    width: 125px;
+    height: 25px;    
+    border: 1px #00bc77 solid;
+  }
+  .wrapper-btn-editName{
+    width: 178px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .error{    
+    height: 66vh;
+   color: #E60000;
+    text-align: center;
+    font-size: 23px;
+   }
+   .link{
+    font-size: 20px;
+   }
   .header {
     color: #fff;
     margin-bottom: 2rem;

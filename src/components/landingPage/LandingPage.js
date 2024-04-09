@@ -1,7 +1,10 @@
-import React from 'react'
-import { NavBar } from '../nav-bar/NavBar'
+import React from 'react' 
 import FeatureItem from './FeatureItem'
 
+/**
+ * Function component to display home page or landingPage
+ * @returns {JSX.Element}
+ */
 const LandingPage = () => {
   return (
     <main>

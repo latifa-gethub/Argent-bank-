@@ -1,12 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-/* import { persistStore, persistReducer } from 'redux-persist'; */
-/* import storage from 'redux-persist/lib/storage'; // import du stockage local */
-
-/* const persistConfig = {
-  key: 'root',
-  storage: storage //spécifier le stockage local comme mécanisme de stockage
-}; */
+import { createSlice } from '@reduxjs/toolkit'; 
 
 const initialState = { token: '', infoUser: {} };
 //creer une partie d'etat de store
@@ -37,11 +30,10 @@ export const userSlice = createSlice({
   }
 });
 export const { stockToken, stockInfoUser,videInfo,modifUser } = userSlice.actions;
-/* const persistedReducer = persistReducer(persistConfig, {userSlice.reducer}); */
+ 
 export const store = configureStore({
   reducer: {
-    userSlice: userSlice.reducer
-    /* persistedReducer */
+    userSlice: userSlice.reducer     
   }
 });
-/* export const persistor = persistStore(store); */
+ 

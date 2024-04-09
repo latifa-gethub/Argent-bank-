@@ -1,21 +1,24 @@
- 
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { videInfo } from '../../Redux/store';
  
+/**
+ * Function component to display NavBar
+ * @returns {JSX.Element}
+ */
 export  const NavBar = () => {
   const navigate = useNavigate();
-  const dispatch=useDispatch()  
+  const dispatch=useDispatch()
   const token=useSelector((state)=>state.userSlice.token)
   const infoUtilisateur=useSelector((state)=>state.userSlice.infoUser)
   const firstName=infoUtilisateur.firstName
+  
     //function pour vider le store et se redireger vers la page d'accueil
-   function deconnecter(){ 
-       
+   function deconnecter(){       
       navigate('/') ;         
-       dispatch(videInfo('')) 
-       console.log("vider le store")     
+       dispatch(videInfo(''))         
     }
+
   return (
     <nav className="main-nav">   
      <Link className="main-nav-logo" to={'/'}>  

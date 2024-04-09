@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { stockToken } from '../../Redux/store.js';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../data/data.js';
 
+/**
+ * fonction composant pour gérer le formulaire d'authentification
+ * @returns {jsx element}
+ */
 const Login = () => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   let [identifiant, setIdentifiant] = useState({});
   const [authorization, setAuthorization] = useState(true);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
   const rememberMe = localStorage.getItem('remember');
 
+ /**
+     * fonction pour recupérer les data depuis le formulaire,      
+     * @param {object} data 
+     */
   function getData(data) {
     setIdentifiant(data);
   }
@@ -23,18 +29,19 @@ const Login = () => {
     email: identifiant.username,
     password: identifiant.password
   };
-
+//useEffect pour faire une appelle Api on envoyant identifiant utilisateur
+//et recupérer le token,et dispatch l'action au redux
   useEffect(
     () => {
       if (login.email !== undefined && login.password !== undefined) {
         async function getApi(login) {
-          //appel api
+       
           const reponse = await postLogin(login);
           if (reponse.status === 200) {
-            const token = reponse.body.token;
-            console.log(token);
-            //donner une tache à redux
+            const token = reponse.body.token;            
+            
             dispatch(stockToken(token));
+            //sticker les identifiants dans le store
             if (identifiant.remember) {
               localStorage.setItem('email', login.email);
               localStorage.setItem('password', login.password);

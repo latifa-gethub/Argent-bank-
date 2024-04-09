@@ -8,6 +8,10 @@ import Login from './components/login/Login';
 import Profil from './components/profile-page/Profil';
 import Error from './components/Error';
 
+/**
+ * function Component for routing
+ * @returns {JSX.Element}
+ */
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +20,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profil" element={<Profil />} />
-        <Route path='/*' element={<Error/>}/>
+        <Route path='*' element={<Error/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>

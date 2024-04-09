@@ -9,7 +9,7 @@ export async function postLogin(login) {
     body: JSON.stringify(login) 
   });
   if (response.ok) {
-    console.log(response)
+    
     const token =await response.json();
     return token;
   } else if (response.status === 400) {
@@ -60,7 +60,7 @@ export async function putUser(token,newData) {
   })
   if (response.ok) {
     const user =await response.json();
-    console.log("new reponse user avec put",user)
+     
     return user;
   } else if (response.status === 400) {
     return 'Invalid Fields';
