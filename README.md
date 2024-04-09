@@ -1,4 +1,4 @@
-# <p align="center">ArgentBank</p>
+# ArgentBank 
 Creation of a web application allowing customers to log in and manage their accounts and profile.
 
 ## 🛠️ Tech Stack :
@@ -8,7 +8,7 @@ Creation of a web application allowing customers to log in and manage their acco
 
 ## 🛠️ Installation Backend :
 Clone the following repository on your computer and look at the README.md
-git clone https://github.com/SW49GO/Project-10-Bank-API
+git clone https://github.com/latifa-gethub/Project-10-Bank-API
 
 ## 🛠️ Installation Frontend :
 1-Clone the following repository on your computer 
