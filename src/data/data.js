@@ -1,4 +1,4 @@
-export async function postLogin(login) { 
+export async function postLogin(infoUser) { 
      
   try{
   const response = await fetch('http://localhost:3001/api/v1/user/login', {
@@ -6,7 +6,7 @@ export async function postLogin(login) {
     headers: {
       "Content-Type": "application/json",      
     },
-    body: JSON.stringify(login) 
+    body: JSON.stringify(infoUser) 
   });
   if (response.ok) {
     

@@ -10,9 +10,8 @@ import { postLogin } from '../../data/data.js';
  * @returns {jsx element}
  */
 const Login = () => {
-
   const dispatch = useDispatch();
-  let [identifiant, setIdentifiant] = useState({});
+  let [identity, setIdentity] = useState({});
   const [authorization, setAuthorization] = useState(true);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -23,29 +22,29 @@ const Login = () => {
      * @param {object} data 
      */
   function getData(data) {
-    setIdentifiant(data);
+    setIdentity(data);
   }
-  const login = {
-    email: identifiant.username,
-    password: identifiant.password
+  const infoUser = {
+    email: identity.username,
+    password: identity.password
   };
-//useEffect pour faire une appelle Api on envoyant identifiant utilisateur
-//et recupérer le token,et dispatch l'action au redux
+//useEffect pour faire une appelle Api on envoyant infoUser  
+//et recupérer le token(identifiant),et dispatch l'action au redux
   useEffect(
     () => {
-      if (login.email !== undefined && login.password !== undefined) {
-        async function getApi(login) {
+      if (infoUser.email !== undefined && infoUser.password !== undefined) {
+        async function getApi(infoUser) {
        
-          const reponse = await postLogin(login);
+          const reponse = await postLogin(infoUser);
           if (reponse.status === 200) {
             const token = reponse.body.token;            
-            
+            //stocker l'identifiant dans le store
             dispatch(stockToken(token));
-            //sticker les identifiants dans le store
-            if (identifiant.remember) {
-              localStorage.setItem('email', login.email);
-              localStorage.setItem('password', login.password);
-              localStorage.setItem('remember', identifiant.remember);
+
+            if (identity.remember) {
+              localStorage.setItem('email', infoUser.email);
+              localStorage.setItem('password', infoUser.password);
+              localStorage.setItem('remember', identity.remember);
             } else {
               localStorage.clear();
             }
@@ -54,10 +53,10 @@ const Login = () => {
             setAuthorization(false);
           }
         }
-        getApi(login);
+        getApi(infoUser);
       }
     },
-    [identifiant]
+    [identity]
   );
 
   return (
@@ -103,7 +102,7 @@ const Login = () => {
           </div>
 
           <button className="sign-in-button">Sign In</button>
-          {authorization === false && <span>identifiant incorrecte</span>}
+          {authorization === false && <span className='error-identifiant'>identifiants incorrects</span>}
         </form>
       </section>
     </div>

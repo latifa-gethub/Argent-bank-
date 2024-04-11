@@ -6,17 +6,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfil } from '../../data/data';
 import { stockInfoUser } from '../../Redux/store';
 import { useNavigate } from 'react-router-dom';
+
+/**
+ * Function component to display profil when user authentified
+ * @returns {JSX.Element}
+ */
 const Profil = () => {
   const dispatch=useDispatch()
+  const navigate=useNavigate()
+
   const token=useSelector((state)=>state.userSlice.token)
- const navigate=useNavigate()
+ 
+  //requette pour authentifier l'utilisateur et despatch infoUser au store 
 useEffect(()=>{   
   async function getStatus(token){
     const response=await getUserProfil(token)  
-     console.log(response)
+      
     if(response && response.status===200){
-      const infoUser=response.body
-      console.log("info user avec apel api aprés envoyer token",infoUser)
+
+      const infoUser=response.body      
       dispatch(stockInfoUser(infoUser))         
     }else if(response === 'Unauthorized'){
      navigate('/*')
@@ -24,10 +32,7 @@ useEffect(()=>{
   }  
    getStatus(token) 
 },[])
-  
-    
-  /* const infoUtilisateur=useSelector((state)=>state.userSlice.infoUser) */
-  
+   
   return (
 
     <div className="main bg-dark">
