@@ -27,7 +27,7 @@ useEffect(()=>{
       const infoUser=response.body      
       dispatch(stockInfoUser(infoUser))         
     }else if(response === 'Unauthorized'){
-     navigate('/*')
+     navigate('/login')
     }
   }  
    getStatus(token) 

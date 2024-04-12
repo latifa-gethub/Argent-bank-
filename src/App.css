@@ -311,7 +311,7 @@ html {
     background-color: #00bc77;
     color: #fff;
   }
-  .error-identifiant{
+  .error-identifiant,.errorName{
     color: red;
   }
   @media (min-width: 720px) {

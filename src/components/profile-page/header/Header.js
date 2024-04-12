@@ -17,13 +17,27 @@ const Header = () => {
   const lastName = infoUtilisateur.lastName;
   const [editName, setEditName] = useState(false);
   const [newinfo, setNewinfo] = useState();
-  const { register, handleSubmit } = useForm();
+  const [errorName,setErrorName]=useState(false)
+  const { register, handleSubmit,reset } = useForm();
 
   function edit(newData) {
+  
+    const regex = /^[A-Za-z]+$/;
+  const verifyFirstName=regex.test(newData.firstName)
+  const verifyLastName=regex.test(newData.lastName)
+  if(verifyFirstName && verifyLastName){
     setNewinfo(newData);
+    setErrorName(false)
+  }
+  else{
+    setErrorName(true)
+  }
+  
+    
   }
   //utiliser useEffect pour une requette Api si les champs sont
   //valident et modifier l'etat du store
+  
   useEffect(
     () => {
       if (newinfo && newinfo.firstName !== '' && newinfo.lastName !== '') {
@@ -61,24 +75,25 @@ const Header = () => {
       {editName &&
         <div>
           <form className="form-editName" onSubmit={handleSubmit(edit)}>
+            
             <div className="wrapper-input-editName">
-              <input
-                required
-                placeholder={firstName}
+              <input                 
+                defaultValue={firstName}
                 name="firstName"
                 {...register('firstName')}
                 type="text"
                 id="input-edit-firstName"
               />
-              <input
-                required
-                placeholder={lastName}
+              
+              <input                
+                defaultValue={lastName}
                 name="lastName"
                 {...register('lastName')}
                 type="text"
                 id="input-edit-lastName"
               />
             </div>
+           
             <div className="wrapper-btn-editName">
               <button type="submit" className="save">
                 Save
@@ -87,13 +102,18 @@ const Header = () => {
                 className="cancel"
                 onClick={() => {
                   setEditName(false);
+                  reset();
+                  setErrorName(false)
                 }}
               >
                 Cancel
-              </button>
+              </button>             
             </div>
+            
           </form>
         </div>}
+        {errorName && <p className='errorName'>Les chiffres ne sont pas authorisés</p>}
+
     </div>
   );
 };

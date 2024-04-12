@@ -16,13 +16,13 @@ export const userSlice = createSlice({
     stockInfoUser: (state, action) => {
       state.infoUser = action.payload;
     },
-    videInfo:(state,action)=>{
-    
+    videInfo:(state,action)=>{    
      state.token=action.payload
      state.infoUser=action.payload
      
     },
     modifUser:(state,action)=>{
+      
        const {firstName,lastName}=action.payload
        state.infoUser.firstName=firstName
        state.infoUser.lastName=lastName

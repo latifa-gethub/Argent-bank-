@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { stockToken } from '../../Redux/store.js';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../data/data.js';
@@ -17,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const rememberMe = localStorage.getItem('remember');
 
- /**
+  /**
      * fonction pour recupérer les data depuis le formulaire,      
      * @param {object} data 
      */
@@ -28,16 +28,15 @@ const Login = () => {
     email: identity.username,
     password: identity.password
   };
-//useEffect pour faire une appelle Api on envoyant infoUser  
-//et recupérer le token(identifiant),et dispatch l'action au redux
+  //useEffect pour faire une appelle Api on envoyant infoUser
+  //et recupérer le token(identifiant),et dispatch l'action au redux
   useEffect(
     () => {
       if (infoUser.email !== undefined && infoUser.password !== undefined) {
         async function getApi(infoUser) {
-       
           const reponse = await postLogin(infoUser);
           if (reponse.status === 200) {
-            const token = reponse.body.token;            
+            const token = reponse.body.token;
             //stocker l'identifiant dans le store
             dispatch(stockToken(token));
 
@@ -102,7 +101,8 @@ const Login = () => {
           </div>
 
           <button className="sign-in-button">Sign In</button>
-          {authorization === false && <span className='error-identifiant'>identifiants incorrects</span>}
+          {authorization === false &&
+            <span className="error-identifiant">identifiants incorrects</span>}
         </form>
       </section>
     </div>
